@@ -54,8 +54,8 @@ function uid(prefix = "id") {
 
 function createProject() {
   return {
-    title: "椎名唯華 ボタンバンク",
-    subtitle: "好きなセリフを押すと音が鳴る、推し活のためのボタンサイト。",
+    title: "剣持刀子　ボタン",
+    subtitle: "ｴｲﾌﾟﾘﾙﾌｰﾙに限らずいつでも刀子の鶯舌を拝聴できるボタンサイト。愛してるぞ、刀子。",
     requestUrl: "",
     design: {
       theme: "pastel",
@@ -68,11 +68,11 @@ function createProject() {
       bodySize: 16,
       sectionSize: 34,
       buttonTextSize: 16,
-      bgColor: "#f7d6e3",
+      bgColor: "#b45fec",
       textColor: "#2b2025",
-      accentColor: "#c84d77",
-      bgImage: "",
-      mascotImage: ""
+      accentColor: "#7cee6d",
+      bgImage: "toko_winter.png",
+      mascotImage: "toko.png"
     },
     sounds: sampleSounds.map(([label, group], index) => ({
       id: uid("sound"),
