@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VTuber Button Factory</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app" data-panel="materials">
+      <aside class="studio">
+        <header class="studio__header">
+          <div>
+            <p class="eyebrow">VTuber Button Factory</p>
+            <h1>ボタンサイト工房</h1>
+          </div>
+          <button class="icon-button" id="resetProject" title="サンプルへ戻す" aria-label="サンプルへ戻す">↺</button>
+        </header>
+
+        <nav class="tabs" aria-label="編集カテゴリ">
+          <button class="tab is-active" data-tab="materials">素材</button>
+          <button class="tab" data-tab="design">デザイン</button>
+          <button class="tab" data-tab="admin">管理</button>
+          <button class="tab" data-tab="export">書き出し</button>
+        </nav>
+
+        <section class="panel is-active" data-panel-name="materials">
+          <label class="field">
+            <span>サイト名</span>
+            <input id="siteTitle" type="text" maxlength="42" />
+          </label>
+          <label class="field">
+            <span>説明文</span>
+            <textarea id="siteSubtitle" rows="3" maxlength="180"></textarea>
+          </label>
+          <label class="field">
+            <span>追加申請URL</span>
+            <input id="requestUrl" type="url" placeholder="https://forms.gle/..." />
+          </label>
+
+          <div class="import-box">
+            <input id="folderImport" type="file" accept=".mp3,audio/mp3,audio/mpeg" multiple webkitdirectory hidden />
+            <input id="filesImport" type="file" accept=".mp3,audio/mp3,audio/mpeg" multiple hidden />
+            <button class="primary" id="chooseFolder">mp3フォルダを取り込む</button>
+            <button id="chooseFiles">mp3ファイルをまとめて追加</button>
+            <p id="importStatus">ファイル名からボタン名を自動で作ります。</p>
+          </div>
+
+          <div class="quick-add">
+            <label class="field">
+              <span>手動追加</span>
+              <input id="manualLabel" type="text" placeholder="例: おはようございます" />
+            </label>
+            <input id="manualFile" type="file" accept=".mp3,audio/mp3,audio/mpeg" hidden />
+            <button id="manualPick">mp3を選んで追加</button>
+          </div>
+
+          <div class="toolbar-row">
+            <input id="buttonSearch" type="search" placeholder="ボタンを検索" />
+            <button id="clearButtons" title="ボタンを空にする">消去</button>
+          </div>
+          <div class="button-list" id="buttonList"></div>
+        </section>
+
+        <section class="panel" data-panel-name="design">
+          <label class="field">
+            <span>テンプレート</span>
+            <select id="themePreset">
+              <option value="classic">クラシック紙面</option>
+              <option value="pastel">パステル格子</option>
+              <option value="doodle">手描き背景</option>
+              <option value="neon">ネオン小箱</option>
+              <option value="gallery">推しギャラリー</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>フォント</span>
+            <select id="fontFamily">
+              <option value="gothic">ゴシック</option>
+              <option value="rounded">丸ゴシック</option>
+              <option value="mincho">明朝</option>
+              <option value="system">システム</option>
+              <option value="pop">ポップ</option>
+            </select>
+          </label>
+
+          <div class="split">
+            <label class="field">
+              <span>並び</span>
+              <select id="layoutMode">
+                <option value="sectioned">五十音セクション</option>
+                <option value="newspaper">更新日カード</option>
+                <option value="grid">均等グリッド</option>
+                <option value="compact">ぎっしり</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>ボタン形</span>
+              <select id="buttonShape">
+                <option value="soft">やわらか角丸</option>
+                <option value="pill">丸ボタン</option>
+                <option value="outline">旧サイト風</option>
+                <option value="ticket">チケット</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="split">
+            <label class="field">
+              <span>サイズ</span>
+              <input id="buttonScale" type="range" min="0" max="3" step="1" />
+            </label>
+            <label class="field">
+              <span>効果</span>
+              <select id="buttonEffect">
+                <option value="press">押し込み</option>
+                <option value="pop">ぽよん</option>
+                <option value="glow">発光</option>
+                <option value="none">なし</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="split">
+            <label class="field">
+              <span>タイトル文字</span>
+              <input id="titleSize" type="range" min="34" max="96" step="2" />
+            </label>
+            <label class="field">
+              <span>本文文字</span>
+              <input id="bodySize" type="range" min="13" max="22" step="1" />
+            </label>
+          </div>
+
+          <div class="split">
+            <label class="field">
+              <span>見出し文字</span>
+              <input id="sectionSize" type="range" min="22" max="52" step="2" />
+            </label>
+            <label class="field">
+              <span>ボタン文字</span>
+              <input id="buttonTextSize" type="range" min="13" max="24" step="1" />
+            </label>
+          </div>
+
+          <div class="swatches">
+            <label><span>背景</span><input id="bgColor" type="color" /></label>
+            <label><span>文字</span><input id="textColor" type="color" /></label>
+            <label><span>差し色</span><input id="accentColor" type="color" /></label>
+          </div>
+
+          <div class="asset-row">
+            <label class="asset-picker">
+              背景画像
+              <input id="bgImage" type="file" accept="image/*" hidden />
+            </label>
+            <button id="clearBgImage">外す</button>
+          </div>
+          <div class="asset-row">
+            <label class="asset-picker">
+              マスコット画像
+              <input id="mascotImage" type="file" accept="image/*" hidden />
+            </label>
+            <button id="clearMascot">外す</button>
+          </div>
+        </section>
+
+        <section class="panel" data-panel-name="admin">
+          <div class="moderation-head">
+            <div>
+              <h2>申請キュー</h2>
+              <p id="queueCount">0件</p>
+            </div>
+            <button id="sampleSubmission">申請サンプル</button>
+          </div>
+          <div id="submissionList" class="submission-list"></div>
+        </section>
+
+        <section class="panel" data-panel-name="export">
+          <div class="export-card">
+            <h2>配布ファイル</h2>
+            <p>音声を埋め込んだ単一HTMLを書き出します。</p>
+            <button class="primary" id="downloadHtml">HTMLを書き出す</button>
+          </div>
+          <div class="export-card">
+            <h2>プロジェクト</h2>
+            <p>編集状態をJSONで保存・復元できます。</p>
+            <div class="export-actions">
+              <button id="downloadJson">JSON保存</button>
+              <label class="file-button">JSON読込<input id="projectImport" type="file" accept="application/json,.json" hidden /></label>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <main class="preview-shell">
+        <div class="preview-topbar">
+          <div>
+            <p>Live Preview</p>
+            <strong id="previewName">ボタンサイト</strong>
+          </div>
+          <div class="preview-actions">
+            <button id="shufflePlay">ランダム再生</button>
+            <button id="stopAudio">停止</button>
+          </div>
+        </div>
+        <section id="sitePreview" class="site-preview"></section>
+      </main>
+    </div>
+
+    <template id="emptyQueueTemplate">
+      <div class="empty-state">
+        <strong>申請はまだありません</strong>
+        <span>プレビュー内の申請フォームから動きを試せます。</span>
+      </div>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
